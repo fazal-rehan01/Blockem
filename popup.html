@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blockem</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="shell">
+    <header class="header">
+      <div class="brand"><img class="brand-icon" src="icons/icon-48.png" width="40" height="40" alt=""><div class="brand-copy"><h1>Blockem</h1><p id="statusText">Loading protection…</p></div></div>
+      <span id="statusPill" class="status-pill">Checking</span>
+    </header>
+    <main class="content">
+      <section class="card site-card" aria-labelledby="siteLabel">
+        <div class="site-copy"><span id="siteLabel" class="eyebrow">Current site</span><strong id="siteHost" class="site-host">Detecting…</strong><span id="siteStatus" class="help">Checking status…</span></div>
+        <button id="whitelistButton" class="button button-secondary" type="button" disabled>Add to whitelist</button>
+      </section>
+      <section class="card" aria-labelledby="protectionLabel">
+        <h2 id="protectionLabel" class="section-title">Protection</h2>
+        <label class="setting"><span class="setting-copy"><strong>Adult-content blocking</strong><span>Domains and URL keywords</span></span><span class="switch"><input id="blockAdult" data-setting="blockAdult" type="checkbox"><span class="switch-track" aria-hidden="true"></span></span></label>
+        <label class="setting"><span class="setting-copy"><strong>Phishing and malware</strong><span>Local domain lists</span></span><span class="switch"><input id="blockPhishing" data-setting="blockPhishing" type="checkbox"><span class="switch-track" aria-hidden="true"></span></span></label>
+        <label class="setting"><span class="setting-copy"><strong>Enforce SafeSearch</strong><span>Google, Bing, DuckDuckGo and Brave</span></span><span class="switch"><input id="enforceSafeSearch" data-setting="enforceSafeSearch" type="checkbox"><span class="switch-track" aria-hidden="true"></span></span></label>
+        <label class="field-label" for="strictness">Keyword strictness</label>
+        <select id="strictness" data-setting="strictness"><option value="relaxed">Relaxed</option><option value="standard">Standard</option><option value="strict">Strict</option></select>
+      </section>
+      <section class="card">
+        <h2 class="section-title">Temporary pause</h2>
+        <p id="pauseStatus" class="help">Protection is active.</p>
+        <div class="actions">
+          <button class="button button-secondary pause-button" data-pause="15" type="button">15 minutes</button>
+          <button class="button button-secondary pause-button" data-pause="60" type="button">1 hour</button>
+          <button class="button button-secondary pause-button" data-pause="restart" type="button">Until restart</button>
+          <button id="resumeButton" class="button button-primary hidden" type="button">Resume protection</button>
+        </div>
+      </section>
+      <section class="card">
+        <h2 class="section-title">Recent blocked sites</h2>
+        <ul id="activityList" class="activity-list"><li>Loading…</li></ul>
+      </section>
+      <p id="notice" class="notice hidden" role="status" aria-live="polite"></p>
+    </main>
+    <footer class="footer"><button id="openOptions" class="link-button" type="button">Open dashboard</button><span class="privacy-note">Local-only by default</span></footer>
+  </div>
+  <script src="shared.js"></script><script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blockem settings</title>
+  <link rel="stylesheet" href="options.css">
+</head>
+<body>
+  <div class="page">
+    <header class="page-header"><div class="brand"><img class="brand-icon" src="icons/icon-48.png" width="44" height="44" alt=""><div><p class="eyebrow">Privacy-first filtering</p><h1>Blockem settings</h1><p class="subtitle">All settings and activity are stored locally in Firefox.</p></div></div><span id="protectionPill" class="status-pill">Checking</span></header>
+    <main class="grid">
+      <section class="card card-wide"><h2>Protection</h2><p>Choose which local filtering features are active.</p>
+        <div class="setting-grid">
+          <label class="setting"><span class="setting-copy"><strong>Block adult domains</strong></span><input id="blockAdult" data-setting="blockAdult" type="checkbox"></label>
+          <label class="setting"><span class="setting-copy"><strong>Block phishing and malware</strong></span><input id="blockPhishing" data-setting="blockPhishing" type="checkbox"></label>
+          <label class="setting"><span class="setting-copy"><strong>Enforce SafeSearch</strong><span>Google, Bing, DuckDuckGo and Brave Search</span></span><input id="enforceSafeSearch" data-setting="enforceSafeSearch" type="checkbox"></label>
+          <label class="setting"><span class="setting-copy"><strong>Filter URL keywords</strong></span><input id="keywordFiltering" data-setting="keywordFiltering" type="checkbox"></label>
+          <label class="setting"><span class="setting-copy"><strong>Filter image, video and iframe metadata</strong></span><input id="scanContent" data-setting="scanContent" type="checkbox"></label>
+          <label class="setting"><span class="setting-copy"><strong>Filter dynamically added media</strong></span><input id="dynamicFiltering" data-setting="dynamicFiltering" type="checkbox"></label>
+        </div>
+        <label for="strictness">Adult keyword strictness</label><select id="strictness" data-setting="strictness"><option value="relaxed">Relaxed</option><option value="standard">Standard</option><option value="strict">Strict</option></select>
+      </section>
+
+      <section class="card"><h2>Built-in lists</h2><p>Built-in domain list files are intentionally empty. Add entries below or edit the files.</p>
+        <dl class="stats"><div><dt>Adult domains</dt><dd id="adultCount">0</dd></div><div><dt>Phishing / malware</dt><dd id="phishingCount">0</dd></div><div><dt>Active keywords</dt><dd id="keywordCount">0</dd></div></dl>
+        <button id="reloadLists" class="button button-secondary" type="button">Reload list files</button>
+        <ul id="listErrors" class="errors hidden"></ul>
+      </section>
+
+      <section class="card"><h2>Custom adult domains</h2><p>One domain or hosts-file entry per line.</p>
+        <label class="sr-only" for="adultDomains">Adult domain list</label><textarea id="adultDomains" rows="7" spellcheck="false" placeholder="example.com"></textarea><ul id="adultDomainChips" class="chips"></ul>
+        <div class="actions"><button id="saveAdultDomains" class="button button-primary" type="button">Save adult list</button><label class="button button-secondary file-button" for="adultFile">Import text<input id="adultFile" type="file" accept=".txt,text/plain"></label><button id="clearAdultDomains" class="button button-secondary" type="button">Clear list</button><span id="adultDomainCount" class="help"></span></div>
+      </section>
+      <section class="card"><h2>Custom phishing / malware domains</h2><p>One domain or hosts-file entry per line.</p>
+        <label class="sr-only" for="phishingDomains">Phishing and malware domain list</label><textarea id="phishingDomains" rows="7" spellcheck="false" placeholder="example.invalid"></textarea><ul id="phishingDomainChips" class="chips"></ul>
+        <div class="actions"><button id="savePhishingDomains" class="button button-primary" type="button">Save phishing list</button><label class="button button-secondary file-button" for="phishingFile">Import text<input id="phishingFile" type="file" accept=".txt,text/plain"></label><button id="clearPhishingDomains" class="button button-secondary" type="button">Clear list</button><span id="phishingDomainCount" class="help"></span></div>
+      </section>
+      <section class="card"><h2>Custom keywords</h2><p>One keyword or phrase per line. Keyword matches are word-boundary based.</p>
+        <label class="sr-only" for="customKeywords">Custom keyword list</label><textarea id="customKeywords" rows="6" spellcheck="false"></textarea>
+        <button id="saveKeywords" class="button button-primary" type="button">Save keywords</button>
+      </section>
+      <section class="card"><h2>Whitelist</h2><p>Whitelisted domains and subdomains bypass Blockem rules.</p>
+        <form id="whitelistForm" class="inline-form"><label class="sr-only" for="whitelistInput">Domain to whitelist</label><input id="whitelistInput" type="text" autocomplete="off" placeholder="example.com"><button class="button button-primary" type="submit">Add site</button></form>
+        <ul id="whitelistList" class="chips"></ul>
+      </section>
+
+      <section class="card card-wide"><h2>Temporary pause</h2><p>Pausing disables enforcement until the selected timer expires or Firefox restarts.</p>
+        <button class="button button-secondary" data-pause="15" type="button">Pause 15 minutes</button><button class="button button-secondary" data-pause="60" type="button">Pause 1 hour</button><button class="button button-secondary" data-pause="restart" type="button">Pause until restart</button><button id="resumeButton" class="button button-primary" type="button">Resume now</button><p id="pauseStatus" role="status"></p>
+      </section>
+
+      <section class="card card-wide"><h2>Recent blocked activity</h2><p>Only the hostname, reason and timestamp are retained; never full URLs or page content.</p><ul id="activityList" class="activity-list"></ul><button id="clearActivity" class="button button-secondary" type="button">Clear activity log</button></section>
+
+      <section class="card card-wide"><h2>Optional remote list updates</h2><p>Disabled by default. When enabled, Blockem fetches only the list URLs you enter. Downloads are capped at 2 MB each.</p>
+        <label class="setting"><span class="setting-copy"><strong>Enable remote updates</strong><span>Explicitly allows network access to configured list URLs.</span></span><input id="remoteUpdates" data-setting="remoteUpdates" type="checkbox"></label>
+        <label for="remoteAdultUrl">Adult list URL</label><input id="remoteAdultUrl" type="url" placeholder="https://example.org/adult.txt">
+        <label for="remotePhishingUrl">Phishing / malware list URL</label><input id="remotePhishingUrl" type="url" placeholder="https://example.org/phishing.txt">
+        <label for="updateFrequencyHours">Update frequency (hours)</label><input id="updateFrequencyHours" type="number" min="1" max="720" value="24">
+        <button id="updateRemote" class="button button-secondary" type="button">Download lists now</button><span id="remoteUpdated" class="help"></span>
+      </section>
+
+      <section class="card card-wide"><h2>Firefox container profiles</h2><p>Optional profiles apply to requests from the selected Firefox container.</p>
+        <label class="setting"><span class="setting-copy"><strong>Enable container profiles</strong></span><input id="containerProfilesEnabled" data-setting="containerProfilesEnabled" type="checkbox"></label>
+        <label for="profileContainer">Container</label><select id="profileContainer"><option value="">Choose a container</option></select>
+        <label class="setting"><span class="setting-copy"><strong>Block adult domains in this container</strong></span><input id="profileBlockAdult" type="checkbox"></label>
+        <label class="setting"><span class="setting-copy"><strong>Enforce SafeSearch in this container</strong></span><input id="profileSafeSearch" type="checkbox"></label>
+        <label for="profileStrictness">Profile keyword strictness</label><select id="profileStrictness"><option value="relaxed">Relaxed</option><option value="standard">Standard</option><option value="strict">Strict</option></select>
+        <label for="profileWhitelist">Profile whitelist (one domain per line)</label><textarea id="profileWhitelist" rows="3"></textarea>
+        <button id="saveProfile" class="button button-primary" type="button">Save container profile</button>
+      </section>
+
+      <section class="card"><h2>Password protection</h2><p>Optional. Protects adult blocking, strictness, custom lists and whitelist changes. Passwords are never stored; only a random salt and salted SHA-256 hash are kept locally.</p>
+        <p id="passwordState" role="status">Loading password settings…</p>
+        <label for="currentPassword">Current password (to unlock)</label><input id="currentPassword" type="password" autocomplete="current-password">
+        <button id="unlockPassword" class="button button-secondary" type="button">Unlock settings</button>
+        <label for="newPassword">New password (8 or more characters)</label><input id="newPassword" type="password" autocomplete="new-password">
+        <button id="setPassword" class="button button-primary" type="button">Set / change password</button>
+        <button id="removePassword" class="button button-secondary" type="button">Remove password protection</button>
+      </section>
+      <section class="card"><h2>Strict response inspection</h2><p>Opt-in, pass-through inspection of main-frame response bytes only. It detects known list-domain strings without modifying or storing page HTML. This is not a substitute for URL blocking.</p>
+        <label class="setting"><span class="setting-copy"><strong>Inspect main-frame HTML responses</strong></span><input id="responseScanning" data-setting="responseScanning" type="checkbox"></label>
+      </section>
+      <section class="card card-wide"><h2>Backup and reset</h2><p>Export includes settings and custom lists only. It never includes passwords or activity.</p><button id="exportSettings" class="button button-secondary" type="button">Export JSON</button><button id="importSettings" class="button button-secondary" type="button">Import JSON</button><input id="importFile" class="hidden" type="file" accept="application/json,.json"><button id="resetDefaults" class="button button-danger" type="button">Reset settings to defaults</button></section>
+    </main>
+    <footer class="page-footer"><span>Blockem · Firefox Manifest V2</span><span>No telemetry or remote requests unless list updates are enabled.</span></footer>
+  </div>
+  <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+  <script src="shared.js"></script><script src="options.js"></script>
+</body>
+</html>

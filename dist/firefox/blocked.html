@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page blocked - Blockem</title>
+  <link rel="stylesheet" href="blocked.css">
+</head>
+<body>
+  <main class="blocked-card">
+    <div class="icon-wrap" aria-hidden="true">
+      <img src="icons/icon-48.png" width="48" height="48" alt="">
+    </div>
+
+    <p class="eyebrow">Blockem</p>
+    <h1>This page was blocked</h1>
+
+    <p id="reason" class="reason">This page matches the rules configured for this browser.</p>
+
+    <p id="hostLine" class="host-line hidden">
+      Blocked site: <strong id="host"></strong>
+    </p>
+
+    <div class="actions">
+      <button id="backButton" class="button button-primary" type="button">Go back</button>
+      <a class="button button-secondary" href="options.html">Open dashboard</a>
+    </div>
+
+    <p id="pageNote" class="note">
+      Blockem stopped this navigation. Only the hostname, reason and time are retained locally.
+    </p>
+  </main>
+
+  <script src="shared.js"></script>
+  <script src="blocked.js"></script>
+</body>
+</html>
