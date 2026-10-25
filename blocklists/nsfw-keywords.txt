@@ -1,0 +1,29 @@
+# Blockem NSFW keyword blocklist
+# One keyword or phrase per line. Case-insensitive, matched against URL text.
+# Built-in keyword sets (Relaxed/Standard/Strict) also apply; these are custom additions.
+
+porn
+pornography
+nsfw
+xxx
+nude
+nudity
+hentai
+erotic
+sexcam
+escort
+adult
+defloration
+anal
+porno
+desi
+sensual
+pussy
+labia
+cunt
+fuck
+hard-core
+hardcore
+cams
+
+

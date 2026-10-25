@@ -1,6 +1,6 @@
 # Blockem
 
-Blockem is a local-first Firefox desktop extension (Manifest V2) that blocks user-supplied adult and phishing/malware domains, filters adult-content URL keywords, enforces SafeSearch, and hides media whose metadata matches the selected keyword set.
+Blockem is a Firefox desktop extension (Manifest V2) that blocks adult and phishing/malware domains, filters adult-content URL keywords, enforces SafeSearch, and hides media whose metadata matches the selected keyword set.
 
 ## Install in Firefox
 
@@ -12,12 +12,15 @@ To create a distributable Firefox build, run `./build.sh`; the package is create
 
 ## Settings and lists
 
-The two supplied domain lists are intentionally empty:
+Blockem ships with starter blocklists you can use right away:
 
-- `blocklists/adult-domains.txt`
-- `blocklists/phishing-malicious.txt`
+- `blocklists/adult-domains.txt` — adult-content domains
+- `blocklists/phishing-malicious.txt` — phishing and malware domains
+- `blocklists/nsfw-keywords.txt` — NSFW keywords matched against URL text
 
-Add one domain per line, or use hosts-file lines such as `0.0.0.0 example.com`, then reload the list files in the dashboard. Custom adult and phishing lists can be pasted or imported as text in the dashboard; each list can be edited, cleared, and backed up as JSON. Domains match the exact hostname and its subdomains. The keyword list in `blocklists/nsfw-keywords.txt` is also empty; built-in keyword sets vary by Relaxed, Standard, and Strict mode.
+Add one domain per line, or use hosts-file lines such as `0.0.0.0 example.com`, then reload the list files in the dashboard. Custom adult and phishing lists can be pasted or imported as text in the dashboard; each list can be edited, cleared, and backed up as JSON. Domains match the exact hostname and its subdomains. Built-in keyword sets vary by Relaxed, Standard, and Strict mode.
+
+Optional remote list updates let Blockem fetch refreshed lists from URLs you configure (disabled by default). When enabled, each download is capped at 2 MB and validated before replacing cached lists.
 
 The popup provides per-site status, whitelist controls, protection toggles, strictness, recent activity, and timed or restart-lifetime pauses. In the dashboard, optional Firefox container profiles configure adult blocking, strictness, SafeSearch, and a whitelist per container. Password protection is opt-in; it stores only a cryptographically random salt and salted SHA-256 hash, never the password. Passwords cannot be recovered.
 
